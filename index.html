@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Kanban Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="./assets/imgs/ats-logo.svg" alt="" srcset="" />
+        </div>
+      </div>
+      <div class="nav-tabs border-0">
+        <a href="#" class="nav-tab">Position</a>
+        <a href="#" class="nav-tab">Job Requisition</a>
+        <a href="#" class="nav-tab">Job Opening</a>
+        <a href="#" class="nav-tab active">ATS</a>
+      </div>
+      <button class="add-btn">Applicant +</button>
+    </div>
+    <div class="filteredRow">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-3">
+          <!-- Left side - UX Researcher dropdown -->
+          <div class="ux-researcher-dropdown">
+            <div class="dropdown">
+              <button
+                class="dropdown-toggle"
+                type="button"
+                id="uxResearcherDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                UX Researcher
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="uxResearcherDropdown">
+                <li><a class="dropdown-item" href="#">UX Researcher</a></li>
+                <li><a class="dropdown-item" href="#">Product Designer</a></li>
+                <li><a class="dropdown-item" href="#">UI Designer</a></li>
+                <li><a class="dropdown-item" href="#">Design Manager</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Center - Screen with AI button -->
+          <div>
+            <button class="btn screen-ai-btn" onclick="openScreenModal()">
+              <svg class="ai-icon" viewBox="0 0 16 16" fill="currentColor">
+                <path
+                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                />
+              </svg>
+              Screen with AI
+            </button>
+          </div>
+        </div>
+        <!-- Right side - Expand and filter buttons with user avatar -->
+        <div class="d-flex align-items-center gap-2">
+          <button class="icon-btn" title="Expand" onclick="expandAllColumns()">
+            <span class="ms-1">Expand</span>
+            <img src="./assets/imgs/expand.svg" alt="" srcset="" />
+          </button>
+
+          <button class="icon-btn filterBtn" title="Filter">
+            <img src="./assets/imgs/filter-icon.svg" alt="" srcset="" />
+          </button>
+
+          <div class="user-avatar">11</div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-card">
+      <div class="d-flex gap-4 flex-wrap">
+        <!-- Screening -->
+        <div class="filter-column">
+          <div class="filter-header screening">Screening</div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Applied</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Longlist</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Shortlist</label>
+          </div>
+        </div>
+
+        <!-- Interview -->
+        <div class="filter-column">
+          <div class="filter-header interview">Interview</div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Interview</label>
+          </div>
+        </div>
+
+        <!-- Decision -->
+        <div class="filter-column">
+          <div class="filter-header decision">Decision</div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Accepted</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">On Hold</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Rejected</label>
+          </div>
+        </div>
+
+        <!-- Offer -->
+        <div class="filter-column">
+          <div class="filter-header offer">Offer</div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Offered</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Accepted</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Rejected</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Withdrawn</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Expired</label>
+          </div>
+        </div>
+
+        <!-- Joining -->
+        <div class="filter-column">
+          <div class="filter-header joining">Joining</div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" />
+            <label class="form-check-label">Hired</label>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!-- Button -->
+      <div class="text-end mt-4">
+        <button class="btn btn-custom">View Selected</button>
+      </div>
+    </div>
+
+    <div class="kanban-board">
+      <div class="kanban-column" id="screening">
+        <div class="kanban-header">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/screening.svg" alt="" srcset="" />
+              <h3>Screening</h3>
+            </div>
+            <div class="viewAll">View all <span>40</span></div>
+          </div>
+          <div class="d-flex justify-content-between threeStats pt-3">
+            <span>Applied 12</span>
+            <span> Longlisted 8</span>
+            <span> Shortlisted 20 </span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/linkedin.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              Applied
+              <img src="./assets/imgs/three-dots.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/linkedin.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              Applied
+              <img src="./assets/imgs/three-dots.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kanban-column" id="interview">
+        <div class="kanban-header">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/interview.svg" alt="" srcset="" />
+              <h3>Interview</h3>
+            </div>
+            <div class="viewAll">View all <span>22</span></div>
+          </div>
+          <!-- <div class="d-flex justify-content-between threeStats pt-3">
+            <span>Applied 12</span>
+            <span> Longlisted 8</span>
+            <span> Shortlisted 20 </span>
+          </div> -->
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/whatsapp.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/three-time.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="planned">Planned</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/date.svg" alt="" srcset="" />
+              <h3>May 20, Sat, 10 AM</h3>
+            </div>
+            <div class="onSite">Onsite</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              <img
+                src="./assets/imgs/edit.svg"
+                style="width: 12px; height: 12px"
+                alt=""
+                srcset=""
+                onclick="openEditModal()"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/whatsapp.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/three-time.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="planned">Planned</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/date.svg" alt="" srcset="" />
+              <h3>May 20, Sat, 10 AM</h3>
+            </div>
+            <div class="onSite">Onsite</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              <img
+                src="./assets/imgs/edit.svg"
+                style="width: 12px; height: 12px"
+                alt=""
+                srcset=""
+                onclick="openEditModal()"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kanban-column" id="decision">
+        <div class="kanban-header">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/decesion.svg" alt="" srcset="" />
+              <h3>Decision</h3>
+            </div>
+            <div class="viewAll">View all <span>40</span></div>
+          </div>
+          <div class="d-flex justify-content-between threeStats pt-3">
+            <span>Applied 12</span>
+            <span> Longlisted 8</span>
+            <span> Shortlisted 20 </span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/linkedin.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/progress-bar.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="cleared">Cleared</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/chat.svg" alt="" srcset="" />
+              <h3>Yet to make offer</h3>
+            </div>
+            <div class="onSite">View Interview</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="rejected">
+              Rejected
+              <img src="./assets/imgs/three-dots-red.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/linkedin.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/progress-bar.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="cleared">Cleared</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/chat.svg" alt="" srcset="" />
+              <h3>Yet to make offer</h3>
+            </div>
+            <div class="onSite">View Interview</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="rejected">
+              Rejected
+              <img src="./assets/imgs/three-dots-red.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kanban-column" id="offer">
+        <div class="kanban-header">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/offer.svg" alt="" srcset="" />
+              <h3>Offer</h3>
+            </div>
+            <div class="viewAll">View all <span>12</span></div>
+          </div>
+          <div class="d-flex justify-content-between threeStats pt-3">
+            <span>Applied 12</span>
+            <span> Longlisted 8</span>
+            <span> Shortlisted 20 </span>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/whatsapp.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/three-time.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="planned">Planned</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/date.svg" alt="" srcset="" />
+              <h3>May 20, Sat, 10 AM</h3>
+            </div>
+            <div class="onSite">Onsite</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              Applied
+              <img src="./assets/imgs/three-dots.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/whatsapp.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/three-time.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="planned">Planned</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/date.svg" alt="" srcset="" />
+              <h3>May 20, Sat, 10 AM</h3>
+            </div>
+            <div class="onSite">Onsite</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              Applied
+              <img src="./assets/imgs/three-dots.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kanban-column" id="joining">
+        <div class="kanban-header">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/join.svg" alt="" srcset="" />
+              <h3>Joining</h3>
+            </div>
+            <div class="viewAll">View all <span>22</span></div>
+          </div>
+          <div class="d-flex justify-content-between threeStats pt-3">
+            <span>Applied 12</span>
+            <!-- <span> Longlisted 8</span>
+            <span> Shortlisted 20 </span> -->
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/whatsapp.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/three-time.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="planned">Planned</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/date.svg" alt="" srcset="" />
+              <h3>May 20, Sat, 10 AM</h3>
+            </div>
+            <div class="onSite">Onsite</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              Applied
+              <img src="./assets/imgs/three-dots.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+        <div class="kanban-card">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-3 align-items-center">
+              <img src="./assets/imgs/profile.png" alt="" />
+              <div>
+                <h4>Alex Chain</h4>
+                <p class="mailpath mb-0">alex.chen@email.com</p>
+              </div>
+            </div>
+            <img
+              src="./assets/imgs/whatsapp.svg"
+              alt=""
+              class="linkedInIcon"
+              srcset=""
+            />
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img
+                src="./assets/imgs/three-time.svg"
+                class="threeTimeImg"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="planned">Planned</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/date.svg" alt="" srcset="" />
+              <h3>May 20, Sat, 10 AM</h3>
+            </div>
+            <div class="onSite">Onsite</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+              <h3>03331234567</h3>
+            </div>
+            <div class="resume">Resume</div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/case.svg" alt="" srcset="" />
+              <h3>3+ yrs</h3>
+            </div>
+            <div class="match">
+              <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+              Match 60%
+            </div>
+          </div>
+          <div class="d-flex justify-content-between info my-3">
+            <div class="d-flex gap-2 align-items-center">
+              <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+              <h3>BSCS</h3>
+            </div>
+            <div class="salaryDemand">PKR 900,00</div>
+          </div>
+          <div class="d-flex justify-content-between infoLast">
+            <div class="d-flex gap-1 align-items-center toggle-show">
+              <h3>Show</h3>
+              <img src="./assets/imgs/angle-down.svg" alt="" srcset="" />
+            </div>
+            <div class="applied">
+              Applied
+              <img src="./assets/imgs/three-dots.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Modal -->
+    <div
+      class="modal fade"
+      id="interviewModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="interviewModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <img
+                src="./assets/imgs/schedule.svg"
+                class="me-2"
+                alt=""
+                srcset=""
+              />Schedule Interview
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <div class="modalHeader mb-3">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex gap-3 align-items-center">
+                  <img src="./assets/imgs/profile.png" alt="" />
+                  <div>
+                    <h4>Alex Chain</h4>
+                    <p class="mailpath mb-0">alex.chen@email.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex gap-3 align-items-center">
+                <div class="flexItem">
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="./assets/imgs/case.svg" alt="" srcset="" />
+                      <h3>3+ yrs</h3>
+                    </div>
+                    <div class="match">
+                      <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+                      Match 60%
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+                      <h3>BSCS</h3>
+                    </div>
+                    <div class="salaryDemand">PKR 900,00</div>
+                  </div>
+                </div>
+                <div class="seperator"></div>
+                <div class="flexItem">
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img
+                        src="./assets/imgs/three-time.svg"
+                        class="threeTimeImg"
+                        alt=""
+                        srcset=""
+                      />
+                    </div>
+                    <div class="planned">Planned</div>
+                  </div>
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img
+                        src="./assets/imgs/location-mark.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <h3>Lahore, Pakistan</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="seperator"></div>
+                <div class="flexItem" style="align-self: flex-start">
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+                      <h3>03331234567</h3>
+                    </div>
+                    <div class="resume">Resume</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form>
+              <!-- Schedule Date and Time -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <!-- Interview Mode -->
+                  <div class="form-section">
+                    <label class="section-title">Interview Mode</label>
+                    <select class="form-select">
+                      <option selected>Online</option>
+                      <option>In-person</option>
+                      <option>Phone</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-section">
+                    <label class="section-title">Schedule Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      value="2025-09-02"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-section">
+                    <div>
+                      <label class="section-title">From Time</label>
+                      <input type="time" class="form-control" value="13:00" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-section">
+                    <div>
+                      <label class="section-title">To Time</label>
+                      <input type="time" class="form-control" value="14:00" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Meeting Platform -->
+              <div class="form-section">
+                <label class="section-title">Meeting Platform</label>
+                <select class="form-select">
+                  <option selected>Zoom</option>
+                  <option>Microsoft Teams</option>
+                  <option>Google Meet</option>
+                  <option>Skype</option>
+                </select>
+              </div>
+
+              <!-- Host URL -->
+              <div class="form-section">
+                <label class="section-title">Host URL</label>
+                <div class="input-group">
+                  <input
+                    type="url"
+                    class="form-control"
+                    value="https://meet.com/bernbNDNengwn49t34"
+                    placeholder="Enter meeting URL"
+                  />
+                  <button class="btn btn-outline-secondary" type="button">
+                    <img src="./assets/imgs/url.svg" alt="" srcset="" />
+                  </button>
+                </div>
+              </div>
+
+              <!-- Add Interviewer -->
+              <div class="form-section">
+                <label class="section-title">Add Interviewer</label>
+                <div class="input-group">
+                  <input
+                    type="url"
+                    class="form-control"
+                    placeholder="Add Interviewer"
+                  />
+                  <button class="btn btn-outline-secondary" type="button">
+                    <img
+                      src="./assets/imgs/add-interviewr.svg"
+                      alt=""
+                      srcset=""
+                    />
+                  </button>
+                </div>
+              </div>
+
+              <!-- Comments -->
+              <div class="form-section">
+                <label class="section-title">Add Comments (Optional)</label>
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  placeholder="456 Oak Avenue, Karachi, Pakistan"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-custom-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-custom-primary">
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen with AI Modal -->
+    <div
+      class="modal fade"
+      id="screenModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="screenModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <div class="screening-container bg-white rounded shadow-sm">
+              <!-- Progress Header -->
+              <div class="progress-header">
+                <span class="progress-text">Auto Screening...</span>
+                <span class="progress-percentage">55%</span>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="custom-progress">
+                <div class="progress-bar-custom" style="width: 55%"></div>
+              </div>
+
+              <!-- Completed Item -->
+              <div class="completed-item">
+                <div class="status-item" style="padding: 0; border: none">
+                  <div class="status-icon completed">
+                    <i class="bi bi-check-circle-fill fs-5"></i>
+                  </div>
+                  <div class="status-content d-flex gap-3">
+                    <img
+                      src="./assets/imgs/profile-overview.svg"
+                      alt=""
+                      srcset=""
+                    />
+                    <div>
+                      <div class="status-title mb-2">Profile Overview</div>
+                      <div class="status-subtitle">Completed</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pending Items -->
+              <div class="status-item">
+                <div class="status-icon pending">
+                  <img
+                    src="./assets/imgs/processing-black.svg"
+                    alt=""
+                    srcset=""
+                  />
+                </div>
+                <div class="status-content">
+                  <div class="status-title">Auto Processing</div>
+                  <div class="status-subtitle">
+                    Preparing Information for Review
+                  </div>
+                </div>
+              </div>
+
+              <div class="status-item">
+                <div class="status-icon pending">
+                  <img
+                    src="./assets/imgs/processing-black.svg"
+                    alt=""
+                    srcset=""
+                  />
+                </div>
+                <div class="status-content">
+                  <div class="status-title">Data Extraction</div>
+                  <div class="status-subtitle">
+                    Preparing Information for Review
+                  </div>
+                </div>
+              </div>
+
+              <div class="status-item">
+                <div class="status-icon pending">
+                  <img
+                    src="./assets/imgs/processing-black.svg"
+                    alt=""
+                    srcset=""
+                  />
+                </div>
+                <div class="status-content">
+                  <div class="status-title">Finalizing</div>
+                  <div class="status-subtitle">
+                    Preparing Information for Review
+                  </div>
+                </div>
+              </div>
+
+              <!-- Alert -->
+              <div class="alert-custom">
+                <img
+                  src="./assets/imgs/clock.svg"
+                  class="me-2"
+                  alt=""
+                  srcset=""
+                />
+                <span
+                  >This may take up to 4-6 minutes for completing process</span
+                >
+              </div>
+
+              <!-- Applicants Info -->
+              <div class="row">
+                <div class="col-md-10 mx-auto">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="applicantBox">
+                        <h3 class="mb-2">40</h3>
+                        <p class="mb-0">Applicants</p>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="applicantBox green">
+                        <h3 class="mb-2">12</h3>
+                        <p class="mb-0">Longlisted</p>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="applicantBox darkGreen">
+                        <h3 class="mb-2">28</h3>
+                        <p class="mb-0">Shortlisted</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Processing Button -->
+              <button class="processing-btn btn" type="button">
+                <img
+                  src="./assets/imgs/processing-white.svg"
+                  class="me-2"
+                  alt=""
+                  srcset=""
+                />
+                Processing...
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- decision Modal -->
+    <div
+      class="modal fade"
+      id="decisionModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="decisionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <!-- Modal Body -->
+          <div class="modal-body p-4">
+            <div class="decision-card">
+              <!-- Screen 1 -->
+              <div id="screen1" class="screen-1">
+                <h5 class="mb-3">Set Decision for Candidate</h5>
+
+                <div class="row g-3">
+                  <div class="col-4">
+                    <div
+                      class="decision-btn accepted"
+                      onclick="showScreen2('accepted')"
+                    >
+                      <div class="decision-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="15"
+                          viewBox="0 0 16 15"
+                          fill="none"
+                        >
+                          <path
+                            d="M1 7.00008L6.33333 12.3334L14.3333 1.66675"
+                            stroke="#22C55E"
+                            stroke-width="2.66667"
+                          />
+                        </svg>
+                      </div>
+                      <div class="decision-text">Accepted</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div
+                      class="decision-btn rejected"
+                      onclick="showScreen2('rejected')"
+                    >
+                      <div class="decision-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                        >
+                          <path
+                            d="M1 1L13 13"
+                            stroke="#E74C3C"
+                            stroke-width="2.66667"
+                          />
+                          <path
+                            d="M1 13L13 1"
+                            stroke="#E74C3C"
+                            stroke-width="2.66667"
+                          />
+                        </svg>
+                      </div>
+                      <div class="decision-text">Rejected</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div
+                      class="decision-btn on-hold"
+                      onclick="showScreen2('on-hold')"
+                    >
+                      <div class="decision-icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="11"
+                          height="16"
+                          viewBox="0 0 11 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.44678 4.00296C1.76025 3.11185 2.37898 2.36043 3.19338 1.8818C4.00779 1.40317 4.9653 1.22821 5.89635 1.38791C6.82739 1.5476 7.67187 2.03166 8.28021 2.75433C8.88856 3.477 9.22152 4.39165 9.22011 5.33629C9.22011 8.00296 5.22011 9.33629 5.22011 9.33629"
+                            stroke="#D97706"
+                            stroke-width="2.66667"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M5.3269 14.6697H5.34024"
+                            stroke="#D97706"
+                            stroke-width="2.66667"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <div class="decision-text">On Hold</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Screen 2 -->
+              <div id="screen2" class="screen-2">
+                <h5 class="mb-3">Set Decision for Candidate</h5>
+
+                <div class="row g-2 mb-4">
+                  <div class="col-4">
+                    <button
+                      class="btn btn-outline-success w-100"
+                      id="acceptedBtn"
+                    >
+                      <span>ACCEPTED</span>
+                      <span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="15"
+                          viewBox="0 0 16 15"
+                          fill="none"
+                        >
+                          <path
+                            d="M1 7.00008L6.33333 12.3334L14.3333 1.66675"
+                            stroke="#22C55E"
+                            stroke-width="2.66667"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button
+                      class="btn btn-outline-danger w-100"
+                      id="rejectedBtn"
+                    >
+                      <span>REJECTED</span>
+                      <span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                        >
+                          <path
+                            d="M1 1L13 13"
+                            stroke="#E74C3C"
+                            stroke-width="2.66667"
+                          />
+                          <path
+                            d="M1 13L13 1"
+                            stroke="#E74C3C"
+                            stroke-width="2.66667"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button
+                      class="btn btn-outline-warning w-100"
+                      id="onHoldBtn"
+                    >
+                      <span>ON HOLD</span>
+                      <span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="11"
+                          height="16"
+                          viewBox="0 0 11 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.44678 4.00296C1.76025 3.11185 2.37898 2.36043 3.19338 1.8818C4.00779 1.40317 4.9653 1.22821 5.89635 1.38791C6.82739 1.5476 7.67187 2.03166 8.28021 2.75433C8.88856 3.477 9.22152 4.39165 9.22011 5.33629C9.22011 8.00296 5.22011 9.33629 5.22011 9.33629"
+                            stroke="#D97706"
+                            stroke-width="2.66667"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M5.3269 14.6697H5.34024"
+                            stroke="#D97706"
+                            stroke-width="2.66667"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <h6>Select Acceptance Reason</h6>
+
+                <div class="mb-4">
+                  <div class="reason-option">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="reason"
+                        id="reason1"
+                        value="lack-of-skills"
+                      />
+                      <label class="form-check-label text-muted" for="reason1">
+                        Lack of required skills
+                      </label>
+                    </div>
+                  </div>
+                  <div class="reason-option">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="reason"
+                        id="reason2"
+                        value="insufficient-experience"
+                      />
+                      <label class="form-check-label text-muted" for="reason2">
+                        Insufficient experience
+                      </label>
+                    </div>
+                  </div>
+                  <div class="reason-option">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="reason"
+                        id="reason3"
+                        value="cultural-misalignment"
+                      />
+                      <label class="form-check-label text-muted" for="reason3">
+                        Cultural misalignment
+                      </label>
+                    </div>
+                  </div>
+                  <div class="reason-option">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="reason"
+                        id="reason4"
+                        value="salary-too-high"
+                      />
+                      <label class="form-check-label text-muted" for="reason4">
+                        Salary expectations too high
+                      </label>
+                    </div>
+                  </div>
+                  <div class="reason-option">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="reason"
+                        id="reason5"
+                        value="position-filled"
+                      />
+                      <label class="form-check-label text-muted" for="reason5">
+                        Position filled internally
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end gap-3">
+                  <button class="btn btn-reset" onclick="resetToScreen1()">
+                    Reset
+                  </button>
+                  <button class="btn btn-continue text-white">Continue</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offer Modal -->
+    <div
+      class="modal fade"
+      id="offerModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="offerModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <img
+                src="./assets/imgs/policy.svg"
+                class="me-2"
+                alt=""
+                srcset=""
+              />Job Offer
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body p-4">
+            <div class="container py-4 offerContainer">
+              <!-- Salary Components Section -->
+              <div class="form-section">
+                <h5 class="section-title">Salary Components Details</h5>
+
+                <div class="row">
+                  <div class="col-md-6 template-select">
+                    <label class="form-label">Select Salary Template</label>
+                    <div class="custom-dropdown">
+                      <select class="form-select" id="salaryTemplate">
+                        <option value="">Select Temp</option>
+                        <option value="template1">Template 1</option>
+                        <option value="template2">Template 2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 offer-valid-till">
+                    <label class="form-label">Offer Valid Till</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      value="2025-09-20"
+                    />
+                  </div>
+                </div>
+
+                <!-- Salary Components Repeater -->
+                <div class="repeater-header">
+                  <div class="row py-3 px-3 tableHeader mx-0">
+                    <div class="col-1"><strong>No</strong></div>
+                    <div class="col-5"><strong>Salary Component</strong></div>
+                    <div class="col-3 text-center"><strong>Amount</strong></div>
+                    <div class="col-3 text-center"><strong>Action</strong></div>
+                  </div>
+                </div>
+
+                <div id="salaryRepeater">
+                  <div class="repeater-item">
+                    <div class="row py-3 px-3 align-items-center mx-0">
+                      <div class="col-1">1</div>
+                      <div class="col-5">
+                        <div class="custom-dropdown">
+                          <select class="form-select">
+                            <option value="">Select Component</option>
+                            <option value="medical" selected>
+                              Medical Allowance
+                            </option>
+                            <option value="transport">
+                              Transport Allowance
+                            </option>
+                            <option value="bonus">Bonus</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <input
+                          type="number"
+                          class="form-control"
+                          value="100.00"
+                        />
+                      </div>
+                      <div class="col-3 d-flex justify-content-center">
+                        <button type="button" class="action-btn edit-btn me-2">
+                          <img
+                            src="./assets/imgs/edit-offer.svg"
+                            alt=""
+                            srcset=""
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          class="action-btn delete-btn"
+                          onclick="removeItem(this)"
+                        >
+                          <img
+                            src="./assets/imgs/delete.svg"
+                            alt=""
+                            srcset=""
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="repeater-item">
+                    <div class="row py-3 px-3 align-items-center mx-0">
+                      <div class="col-1">2</div>
+                      <div class="col-5">
+                        <div class="custom-dropdown">
+                          <select class="form-select">
+                            <option value="">Select Component</option>
+                            <option value="medical">Medical Allowance</option>
+                            <option value="transport">
+                              Transport Allowance
+                            </option>
+                            <option value="leave" selected>
+                              Leave Fare Assistance
+                            </option>
+                            <option value="bonus">Bonus</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <input
+                          type="number"
+                          class="form-control"
+                          value="100.00"
+                        />
+                      </div>
+                      <div class="col-3 d-flex justify-content-center">
+                        <button type="button" class="action-btn edit-btn me-2">
+                          <img
+                            src="./assets/imgs/edit-offer.svg"
+                            alt=""
+                            srcset=""
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          class="action-btn delete-btn"
+                          onclick="removeItem(this)"
+                        >
+                          <img
+                            src="./assets/imgs/delete.svg"
+                            alt=""
+                            srcset=""
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 text-center addBtnMain">
+                  <button
+                    type="button"
+                    class="add-btn mx-auto"
+                    onclick="addSalaryComponent()"
+                  >
+                    <img src="./assets/imgs/add-offer.svg" alt="" srcset="" />
+                    Add Component
+                  </button>
+                </div>
+              </div>
+
+              <!-- Job Offer Terms Section -->
+              <div class="form-section">
+                <h5 class="section-title">Job Offer Terms</h5>
+
+                <div class="col-md-6 template-select">
+                  <label class="form-label">Select Job Offer Template</label>
+                  <div class="custom-dropdown">
+                    <select class="form-select" id="jobOfferTemplate">
+                      <option value="">Select Temp</option>
+                      <option value="template1">Template 1</option>
+                      <option value="template2">Template 2</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Job Offer Terms Repeater -->
+                <div class="repeater-header">
+                  <div class="row py-3 px-3 tableHeader mx-0">
+                    <div class="col-1"><strong>No</strong></div>
+                    <div class="col-3"><strong>Offer Term</strong></div>
+                    <div class="col-6 text-center">
+                      <strong>Value/ Description</strong>
+                    </div>
+                    <div class="col-2 text-center"><strong>Action</strong></div>
+                  </div>
+                </div>
+
+                <div id="offerTermsRepeater">
+                  <div class="repeater-item">
+                    <div class="row py-3 px-3 align-items-center">
+                      <div class="col-1">1</div>
+                      <div class="col-3">
+                        <div class="custom-dropdown">
+                          <select class="form-select">
+                            <option value="">Select Term</option>
+                            <option value="incentives" selected>
+                              Incentives
+                            </option>
+                            <option value="notice">Notice Period</option>
+                            <option value="responsibilities">
+                              Responsibilities
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          placeholder="Enter description"
+                        >
+Find your ideal residence at 789 Maple Street, located in the lively city of Lahore, Pakistan. Enjoy a blend of comfort and accessibility in a sought-after area!</textarea
+                        >
+                      </div>
+                      <div class="col-2 d-flex justify-content-center">
+                        <button
+                          type="button"
+                          class="action-btn delete-btn"
+                          onclick="removeItem(this)"
+                        >
+                          <img
+                            src="./assets/imgs/delete.svg"
+                            alt=""
+                            srcset=""
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="repeater-item">
+                    <div class="row py-3 px-3 align-items-center">
+                      <div class="col-1">1</div>
+                      <div class="col-3">
+                        <div class="custom-dropdown">
+                          <select class="form-select">
+                            <option value="">Select Term</option>
+                            <option value="incentives">Incentives</option>
+                            <option value="notice" selected>
+                              Notice Period
+                            </option>
+                            <option value="responsibilities">
+                              Responsibilities
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          placeholder="Enter description"
+                        >
+Uncover your perfect abode at 321 Pine Road, set in the bustling city of Islamabad, Pakistan. Relish the harmony of comfort and convenience in a desirable neighborhood!</textarea
+                        >
+                      </div>
+                      <div class="col-2 d-flex justify-content-center">
+                        <button
+                          type="button"
+                          class="action-btn delete-btn"
+                          onclick="removeItem(this)"
+                        >
+                          <img
+                            src="./assets/imgs/delete.svg"
+                            alt=""
+                            srcset=""
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="repeater-item">
+                    <div class="row py-3 px-3 align-items-center">
+                      <div class="col-1">1</div>
+                      <div class="col-3">
+                        <div class="custom-dropdown">
+                          <select class="form-select">
+                            <option value="">Select Term</option>
+                            <option value="incentives">Incentives</option>
+                            <option value="notice">Notice Period</option>
+                            <option value="responsibilities" selected>
+                              Responsibilities
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <textarea
+                          class="form-control"
+                          rows="3"
+                          placeholder="Enter description"
+                        >
+Explore your perfect sanctuary at 654 Birch Lane, situated in the energetic city of Peshawar, Pakistan. Savor the ease and comfort in a fantastic location!</textarea
+                        >
+                      </div>
+                      <div class="col-2 d-flex justify-content-center">
+                        <button
+                          type="button"
+                          class="action-btn delete-btn"
+                          onclick="removeItem(this)"
+                        >
+                          <img
+                            src="./assets/imgs/delete.svg"
+                            alt=""
+                            srcset=""
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-center addBtnMain">
+                  <button
+                    type="button"
+                    class="add-btn mx-auto"
+                    onclick="addOfferTerm()"
+                  >
+                    <img src="./assets/imgs/add-offer.svg" alt="" srcset="" />
+                    Add Term
+                  </button>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="d-flex justify-content-end gap-3">
+                <button type="button" class="btn btn-outline-secondary">
+                  Cancel
+                </button>
+                <button type="button" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Modal -->
+    <div
+      class="modal fade"
+      id="interviewDetailModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="interviewDetailModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <img
+                src="./assets/imgs/policy.svg"
+                class="me-2"
+                alt=""
+                srcset=""
+              />Interview Details
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <div class="modalHeader mb-4">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex gap-3 align-items-center">
+                  <img src="./assets/imgs/profile.png" alt="" />
+                  <div>
+                    <h4>Alex Chain</h4>
+                    <p class="mailpath mb-0">alex.chen@email.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex gap-3 align-items-center">
+                <div class="flexItem" style="align-self: flex-start">
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="./assets/imgs/phone.svg" alt="" srcset="" />
+                      <h3>03331234567</h3>
+                    </div>
+                    <div class="resume">Resume</div>
+                  </div>
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="./assets/imgs/date.svg" alt="" srcset="" />
+                      <h3>May 20, Sat, 10 AM</h3>
+                    </div>
+                    <div class="onSite">Onsite</div>
+                  </div>
+                </div>
+                <div class="seperator"></div>
+                <div class="flexItem">
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="./assets/imgs/case.svg" alt="" srcset="" />
+                      <h3>3+ yrs</h3>
+                    </div>
+                    <div class="match">
+                      <img src="./assets/imgs/stars.svg" alt="" srcset="" />
+                      Match 60%
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="./assets/imgs/degree.svg" alt="" srcset="" />
+                      <h3>BSCS</h3>
+                    </div>
+                    <div class="salaryDemand">PKR 900,00</div>
+                  </div>
+                </div>
+                <div class="seperator"></div>
+                <div class="flexItem">
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img
+                        src="./assets/imgs/three-time.svg"
+                        class="threeTimeImg"
+                        alt=""
+                        srcset=""
+                      />
+                    </div>
+                    <div class="planned">Planned</div>
+                  </div>
+                  <div class="d-flex justify-content-between info my-3">
+                    <div class="d-flex gap-2 align-items-center">
+                      <img
+                        src="./assets/imgs/location-mark.svg"
+                        alt=""
+                        srcset=""
+                      />
+                      <h3>Lahore, Pakistan</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="interview-pipeline-container">
+              <h1>Interview Pipeline</h1>
+              <!-- Main Pipeline Stages -->
+              <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="pipeline-stage active">
+                    <div class="stage-header">
+                      <div class="d-flex align-items-center">
+                        <span class="stage-number cleared">1</span>
+                        <span class="stage-title">Technical Round</span>
+                      </div>
+                      <span class="stage-status cleared">Cleared</span>
+                    </div>
+
+                    <div class="interviewers-section">
+                      <div class="interviewers-label mb-2">
+                        <img
+                          src="./assets/imgs/interviewer.svg"
+                          class="me-1"
+                          alt=""
+                          srcset=""
+                        />
+                        Interviewers
+                      </div>
+                      <div class="row gx-0">
+                        <div class="col-md-6">
+                          <div class="interviewer-row">
+                            <img
+                              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face"
+                              alt="David Okoro"
+                              class="interviewer-avatar"
+                            />
+                            <span class="interviewer-name">David Okoro</span>
+                          </div>
+                          <div class="interviewer-row">
+                            <img
+                              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=32&h=32&fit=crop&crop=face"
+                              alt="Alex Morgan"
+                              class="interviewer-avatar"
+                            />
+                            <span class="interviewer-name">Alex Morgan</span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="interview-datetime">
+                            <div class="datetime-item mb-2">
+                              <i class="far fa-calendar"></i>
+                              <span>Sun, Jan 25</span>
+                            </div>
+                            <div class="datetime-item">
+                              <i class="far fa-clock"></i>
+                              <span>3:00 PM - 4:00 PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button class="pipeline-btn view-details-outline mt-3">
+                      <i class="fas fa-eye me-2"></i>View Details
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="pipeline-stage">
+                    <div class="stage-header">
+                      <div class="d-flex align-items-center">
+                        <span class="stage-number cleared">2</span>
+                        <span class="stage-title">HR Round</span>
+                      </div>
+                      <span class="stage-status cleared">Cleared</span>
+                    </div>
+
+                    <div class="interviewers-section">
+                      <div class="interviewers-label mb-2">
+                        <img
+                          src="./assets/imgs/interviewer.svg"
+                          class="me-1"
+                          alt=""
+                          srcset=""
+                        />
+                        Interviewers
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="interviewer-row">
+                            <img
+                              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&fit=crop&crop=face"
+                              alt="Sarah Lee"
+                              class="interviewer-avatar"
+                            />
+                            <span class="interviewer-name">Sarah Lee</span>
+                          </div>
+                          <div class="interviewer-row">
+                            <img
+                              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face"
+                              alt="Mark Brown"
+                              class="interviewer-avatar"
+                            />
+                            <span class="interviewer-name">Mark Brown</span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="interview-datetime">
+                            <div class="datetime-item mb-2">
+                              <i class="far fa-calendar"></i>
+                              <span>Sun, Jan 25</span>
+                            </div>
+                            <div class="datetime-item">
+                              <i class="far fa-clock"></i>
+                              <span>3:00 PM - 4:00 PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button class="pipeline-btn view-details-outline mt-3">
+                      <i class="fas fa-eye me-2"></i>View Details
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="pipeline-stage">
+                    <div class="stage-header">
+                      <div class="d-flex align-items-center">
+                        <span class="stage-number rejected">3</span>
+                        <span class="stage-title">Final Round</span>
+                      </div>
+                      <span class="stage-status rejected">Rejected</span>
+                    </div>
+
+                    <div class="interviewers-section">
+                      <div class="interviewers-label mb-2">
+                        <img
+                          src="./assets/imgs/interviewer.svg"
+                          class="me-1"
+                          alt=""
+                          srcset=""
+                        />
+                        Interviewers
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="interviewer-row">
+                            <img
+                              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop&crop=face"
+                              alt="Emily Chen"
+                              class="interviewer-avatar"
+                            />
+                            <span class="interviewer-name">Emily Chen</span>
+                          </div>
+                          <div class="interviewer-row">
+                            <img
+                              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&fit=crop&crop=face"
+                              alt="John Smith"
+                              class="interviewer-avatar"
+                            />
+                            <span class="interviewer-name">John Smith</span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="interview-datetime">
+                            <div class="datetime-item mb-2">
+                              <i class="far fa-calendar"></i>
+                              <span>Fri, Feb 03</span>
+                            </div>
+                            <div class="datetime-item">
+                              <i class="far fa-clock"></i>
+                              <span>1:00 PM - 2:00 PM</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="pipeline-btn view-details-outline mt-3">
+                      <i class="fas fa-eye me-2"></i>View Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Detailed Candidate Information -->
+              <div class="row d-flex align-items-stretch">
+                <div class="col-lg-8">
+                  <div class="candidate-detail-section">
+                    <div class="stage-header">
+                      <div class="d-flex align-items-center">
+                        <span class="stage-number cleared">1</span>
+                        <span class="stage-title"
+                          ><strong>Technical Round</strong></span
+                        >
+                      </div>
+                    </div>
+
+                    <div
+                      class="row d-flex align-items-stretch candidateCardMainRow"
+                    >
+                      <div class="col-md-6">
+                        <div class="candidateCardMain">
+                          <div>
+                            <div class="candidate-card">
+                              <div class="d-flex gap-2">
+                                <img
+                                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop&crop=face"
+                                  alt="Priya Sharma"
+                                  class="candidate-avatar"
+                                />
+                                <div class="candidate-info">
+                                  <h6>Rao Sharma</h6>
+                                  <span class="stage-status cleared"
+                                    >Cleared</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <p class="candidate-description">
+                              Proficient in React and TypeScript, showcasing
+                              impressive problem-solving skills throughout the
+                              coding challenge. Solid grasp of state management
+                              and component design.
+                            </p>
+                          </div>
+                          <a href="#" class="document-link">
+                            <i class="fas fa-file-pdf"></i>
+                            document.pdf
+                            <span class="ms-auto">View</span>
+                          </a>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="candidateCardMain">
+                          <div>
+                            <div class="candidate-card">
+                              <div class="d-flex gap-2">
+                                <img
+                                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop&crop=face"
+                                  alt="Priya Sharma"
+                                  class="candidate-avatar"
+                                />
+                                <div class="candidate-info">
+                                  <h6>Ben Sharma</h6>
+                                  <span class="stage-status cleared"
+                                    >Cleared</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                            <p class="candidate-description">
+                              Expertise in React and TypeScript with notable
+                              problem-solving capabilities displayed during the
+                              coding assessment.
+                            </p>
+                          </div>
+                          <a href="#" class="document-link">
+                            <i class="fas fa-file-pdf"></i>
+                            document.pdf
+                            <span class="ms-auto">View</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <div class="status-update-section d-flex justify-content-between h-100">
+                    <div>
+                      <h6 class="status-update-header">Update Status</h6>
+                      <div class="mb-3">
+                        <label class="form-label">Change Status</label>
+                        <select class="status-dropdown">
+                          <option value="cleared" selected>Cleared</option>
+                          <option value="pending">Pending</option>
+                          <option value="rejected">Rejected</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="status-actions">
+                      <button class="btn-reset">Reset</button>
+                      <button class="btn-continue">Continue</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
