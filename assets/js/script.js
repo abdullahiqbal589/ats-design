@@ -48,6 +48,7 @@ function expandAllColumns() {
     if (btnIcon) btnIcon.style.transform = "rotate(0deg)";
   }
 }
+
 // Initialize show/hide functionality for each card
 function initializeShowHide() {
   document.querySelectorAll(".kanban-card").forEach((card) => {
@@ -67,6 +68,7 @@ function initializeShowHide() {
     }
   });
 }
+
 function toggleFunctionality(toggleBtn, card, infos) {
   toggleBtn.addEventListener("click", function (e) {
     e.preventDefault();
@@ -99,6 +101,7 @@ function toggleFunctionality(toggleBtn, card, infos) {
     }
   });
 }
+
 // Initialize Sortable for each column
 function initializeSortable() {
   const columns = document.querySelectorAll(".kanban-column");
@@ -183,7 +186,78 @@ function initializeFilter() {
     });
   }
 }
+// Handle Applied checkbox toggle
+if (document.getElementById('applied-checkbox')) {
+  document.getElementById('applied-checkbox').addEventListener('change', function() {
+    const dateRangeContainer = document.getElementById('date-range-container');
+    
+    if (this.checked) {
+        // Show date range
+        dateRangeContainer.classList.remove('date-range-hidden');
+        dateRangeContainer.classList.add('expanding');
+        
+        // Remove expanding class after animation
+        setTimeout(() => {
+            dateRangeContainer.classList.remove('expanding');
+        }, 300);
+    } else {
+        // Hide date range
+        dateRangeContainer.classList.add('date-range-hidden');
+    }
+  });
+}
 
+
+// Date range actions
+function clearDateRange() {
+  // Clear the date inputs
+  const dateInputs = document.querySelectorAll('.date-input-field');
+  dateInputs.forEach(input => input.value = '');
+  
+  // Hide the date range
+  document.getElementById('date-range-container').classList.add('date-range-hidden');
+  
+  // Optionally uncheck the Applied checkbox
+  // document.getElementById('applied-checkbox').checked = false;
+}
+
+function applyDateRange() {
+  const fromDate = document.querySelectorAll('.date-input-field')[0].value;
+  const toDate = document.querySelectorAll('.date-input-field')[1].value;
+  
+  if (fromDate && toDate) {
+      // Here you can add your logic to apply the date filter
+      console.log('Applying date range:', fromDate, 'to', toDate);
+      
+      // Optional: Show success feedback
+      const applyBtn = event.target;
+      const originalText = applyBtn.textContent;
+      applyBtn.textContent = 'Applied ✓';
+      applyBtn.classList.remove('btn-primary');
+      applyBtn.classList.add('btn-success');
+      
+      setTimeout(() => {
+          applyBtn.textContent = originalText;
+          applyBtn.classList.remove('btn-success');
+          applyBtn.classList.add('btn-primary');
+      }, 2000);
+  } else {
+      alert('Please select both From and To dates');
+  }
+}
+
+// Alternative: Auto-apply when dates change
+document.querySelectorAll('.date-input-field').forEach(input => {
+  input.addEventListener('change', function() {
+      const fromDate = document.querySelectorAll('.date-input-field')[0].value;
+      const toDate = document.querySelectorAll('.date-input-field')[1].value;
+      
+      if (fromDate && toDate) {
+          // Auto-apply the filter when both dates are selected
+          console.log('Auto-applying date range:', fromDate, 'to', toDate);
+      }
+  });
+});
 // Standalone showHide function for programmatic use
 function showHide(card) {
   const infos = card.querySelectorAll(".info");
@@ -212,6 +286,7 @@ function showHide(card) {
     if (toggleIcon) toggleIcon.style.transform = "rotate(180deg)";
   }
 }
+
 function openScreenModal() {
   let modal = new bootstrap.Modal(document.getElementById("screenModal"));
   modal.show();
@@ -229,6 +304,7 @@ function openScreenModal() {
     percentage.textContent = currentWidth + "%";
   }, 50);
 }
+
 function showScreen2(decision) {
   document.getElementById("screen1").style.display = "none";
   document.getElementById("screen2").style.display = "block";
@@ -259,6 +335,7 @@ function resetToScreen1() {
   const radioButtons = document.querySelectorAll('input[name="reason"]');
   radioButtons.forEach((radio) => (radio.checked = false));
 }
+
 // Initialize everything when DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
   initializeShowHide();
@@ -267,7 +344,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // For Offer Modal JS
-
 let salaryCounter = 2;
 let offerTermCounter = 3;
 
@@ -368,6 +444,7 @@ function updateNumbers() {
   salaryCounter = salaryItems.length;
   offerTermCounter = offerItems.length;
 }
+
 function openEditModal() {
   let modal = new bootstrap.Modal(
     document.getElementById("interviewDetailModal")
@@ -401,4 +478,496 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Status changed to:", this.value);
     });
   }
+});
+
+// Enhanced Applicant Page Js with Progress Step Navigation
+class ESSFormManager {
+  constructor() {
+    this.currentMainStep = "information";
+    this.currentSubStep = "professional-portfolio";
+    this.completedSections = new Set([]);
+    this.mainSteps = [
+      "information",
+      "experience",
+      "education",
+      "skills",
+      "preferences",
+      "review",
+    ];
+    this.subSteps = [
+      "professional-portfolio",
+      "personal-information",
+      "identity-details",
+      "contact-details",
+    ];
+
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.setupFileUpload();
+    this.bindProgressStepNavigation(); // Add this new method
+    this.updateUI();
+  }
+
+  bindEvents() {
+    // Sidebar navigation
+    document.querySelectorAll(".ess-sidebar-item").forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const section = e.currentTarget.getAttribute("data-section");
+        this.navigateToSection(section);
+      });
+    });
+
+    // Next/Back buttons
+    const nextBtn = document.getElementById("nextBtn");
+    const backBtn = document.getElementById("backBtn");
+    
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        this.handleNext();
+      });
+    }
+
+    if (backBtn) {
+      backBtn.addEventListener("click", () => {
+        this.handleBack();
+      });
+    }
+
+    // Form validation on input change
+    document.querySelectorAll(".ess-form-control").forEach((input) => {
+      input.addEventListener("change", () => {
+        this.validateCurrentSection();
+      });
+    });
+  }
+
+  // NEW METHOD: Bind progress step navigation
+  bindProgressStepNavigation() {
+    document.querySelectorAll(".ess-progress-step").forEach((step) => {
+      step.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const stepCircle = step.querySelector(".ess-step-circle");
+        if (stepCircle) {
+          const targetStep = stepCircle.getAttribute("data-step");
+          if (targetStep && this.canNavigateToStep(targetStep)) {
+            this.navigateToMainStep(targetStep);
+          }
+        }
+      });
+      
+      // Add cursor pointer to indicate clickability
+      step.style.cursor = "pointer";
+    });
+  }
+
+  // NEW METHOD: Check if user can navigate to a specific step
+  canNavigateToStep(targetStep) {
+    const targetIndex = this.mainSteps.indexOf(targetStep);
+    const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+    
+    // Allow navigation to:
+    // 1. Current step
+    // 2. Previous completed steps
+    // 3. Next immediate step (if current step is valid)
+    if (targetIndex === currentIndex) {
+      return true;
+    }
+    
+    if (targetIndex < currentIndex) {
+      return true; // Can go back to any previous step
+    }
+    
+    if (targetIndex > currentIndex) {
+      return true; // Can go back to any previous step
+    }
+    
+    if (targetIndex === currentIndex + 1) {
+      // Can go to next step only if current step is valid
+      // return this.validateCurrentStep();
+      return true;
+    }
+    
+    // Cannot skip multiple steps ahead
+    return false;
+  }
+
+  // NEW METHOD: Navigate directly to a main step
+  navigateToMainStep(targetStep) {
+    if (targetStep === "information") {
+      this.currentMainStep = "information";
+      this.currentSubStep = "professional-portfolio";
+      document.querySelectorAll(".ess-content-area").forEach((item) => {
+        item.style.display = "none";
+      });
+      document.querySelector("#informationSection").style.display = "flex";
+      document.querySelector("#informationSection .ess-content-area").style.display = "block";
+      this.navigateToSection(this.currentSubStep);
+    } else if (targetStep === "experience") {
+      this.moveToMainStep("experience");
+    } else if (targetStep === "education") {
+      this.moveToMainStep("education");
+    } else if (targetStep === "skills") {
+      this.moveToMainStep("skills");
+    } else if (targetStep === "preferences") {
+      this.moveToMainStep("preferences");
+    } else if (targetStep === "review") {
+      this.moveToMainStep("review");
+    }
+    
+    this.updateUI();
+  }
+
+  // ENHANCED METHOD: Validate current step (not just section)
+  validateCurrentStep() {
+    if (this.currentMainStep === "information") {
+      // For information step, validate all completed sub-sections
+      return this.completedSections.size >= 1; // At least one section completed
+    }
+    
+    // For other steps, you can add validation logic as needed
+    return true;
+  }
+
+  setupFileUpload() {
+    const uploadArea = document.querySelector(".ess-upload-area");
+    const fileInput = document.getElementById("resume-upload");
+
+    if (!uploadArea || !fileInput) return;
+
+    // Drag and drop functionality
+    uploadArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      uploadArea.classList.add("dragover");
+    });
+
+    uploadArea.addEventListener("dragleave", () => {
+      uploadArea.classList.remove("dragover");
+    });
+
+    uploadArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove("dragover");
+
+      const files = e.dataTransfer.files;
+      if (files.length > 0 && files[0].type === "application/pdf") {
+        this.handleFileUpload(files[0]);
+      }
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files.length > 0) {
+        this.handleFileUpload(e.target.files[0]);
+      }
+    });
+  }
+
+  handleFileUpload(file) {
+    if (file.size > 10 * 1024 * 1024) {
+      // 10MB limit
+      alert("File size exceeds 10MB limit");
+      return;
+    }
+
+    const uploadArea = document.querySelector(".ess-upload-area");
+    uploadArea.innerHTML = `
+                    <div class="ess-upload-icon text-success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="ess-upload-text text-success">File uploaded successfully</div>
+                    <div class="ess-upload-subtext">${file.name}</div>
+                `;
+  }
+
+  navigateToSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll(".ess-form-section").forEach((section) => {
+      section.classList.remove("active");
+    });
+
+    // Show target section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+      targetSection.classList.add("active");
+    }
+
+    // Update sidebar
+    document.querySelectorAll(".ess-sidebar-item").forEach((item) => {
+      item.classList.remove("active");
+    });
+
+    const sidebarItem = document.querySelector(`[data-section="${sectionId}"]`);
+    if (sidebarItem) {
+      sidebarItem.classList.add("active");
+    }
+
+    this.currentSubStep = sectionId;
+    this.updateActionButtons();
+  }
+
+  validateCurrentSection() {
+    return true; // Simplified for now - you can add validation logic here
+  }
+
+  handleNext() {
+    if (this.currentMainStep === "information") {
+      // If we're in the Information step, handle sub-step navigation
+      const currentIndex = this.subSteps.indexOf(this.currentSubStep);
+
+      if (this.validateCurrentSection()) {
+        // Mark current section as completed
+        this.completedSections.add(this.currentSubStep);
+
+        // Move to next sub-step or main step
+        if (currentIndex < this.subSteps.length - 1) {
+          const nextSection = this.subSteps[currentIndex + 1];
+          this.navigateToSection(nextSection);
+        } else {
+          // All sub-steps completed, move to Experience
+          this.moveToMainStep("experience");
+        }
+
+        this.updateUI();
+      } else {
+        this.showValidationError();
+      }
+    } else {
+      // Handle other main steps (Experience, Education, etc.)
+      const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+      if (currentIndex < this.mainSteps.length - 1) {
+        const nextStep = this.mainSteps[currentIndex + 1];
+        this.moveToMainStep(nextStep);
+      }
+    }
+  }
+
+  handleBack() {
+    if (this.currentMainStep === "information") {
+      const currentIndex = this.subSteps.indexOf(this.currentSubStep);
+      if (currentIndex > 0) {
+        const prevSection = this.subSteps[currentIndex - 1];
+        this.navigateToSection(prevSection);
+      }
+    } else {
+      // Go back to previous main step
+      const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+      if (currentIndex > 0) {
+        const prevStep = this.mainSteps[currentIndex - 1];
+        if (prevStep === "information") {
+          // Go back to the last sub-step of Information
+          this.currentMainStep = "information";
+          this.navigateToSection("contact-details");
+          this.updateUI();
+        } else {
+          this.moveToMainStep(prevStep);
+        }
+      }
+    }
+  }
+
+  moveToMainStep(stepName) {
+    this.currentMainStep = stepName;
+    document.querySelectorAll(".ess-content-area").forEach((item) => {
+      item.style.display = "none";
+    });
+
+    if (stepName === "experience") {
+      document.querySelector("#experienceSection").style.display = "block";
+
+    } else if (stepName === "information") {
+      document.querySelector("#informationSection").style.display = "flex";
+      document.querySelector("#informationSection .ess-content-area").style.display = "block";
+      this.navigateToSection(this.currentSubStep);
+      
+    } else if (stepName === "education") {
+      // Create a placeholder for education step
+      // this.showPlaceholderStep(stepName, "Education", "fas fa-graduation-cap");
+      document.querySelector("#educationSection").style.display = "block";
+      
+    } else if (stepName === "skills") {
+      // Create a placeholder for skills step
+      // this.showPlaceholderStep(stepName, "Skills", "fas fa-cogs");
+      document.querySelector("#skillsSection").style.display = "block";
+      
+    } else if (stepName === "preferences") {
+      // Create a placeholder for preferences step
+      // this.showPlaceholderStep(stepName, "Preferences", "fas fa-sliders-h");
+      document.querySelector("#preferencesSection").style.display = "block";
+      
+    } else if (stepName === "review") {
+      // Create a placeholder for review step
+      // this.showPlaceholderStep(stepName, "Review", "fas fa-eye");
+      document.querySelector("#reviewSection").style.display = "block";
+    }
+
+    this.updateUI();
+  }
+
+  // NEW METHOD: Show placeholder for unimplemented steps
+  showPlaceholderStep(stepName, stepTitle, iconClass) {
+    const existingPlaceholder = document.querySelector("#placeholderSection");
+    
+    if (existingPlaceholder) {
+      existingPlaceholder.remove();
+    }
+
+    const placeholderHTML = `
+      <div class="ess-content-area" id="placeholderSection">
+        <div class="text-center py-5">
+          <div class="mb-4">
+            <i class="${iconClass}" style="font-size: 4rem; color: #6366f1;"></i>
+          </div>
+          <h2 class="mb-3">${stepTitle} Section</h2>
+          <p class="text-muted mb-4">This is where you would add your ${stepTitle.toLowerCase()} details.</p>
+        </div>
+      </div>
+    `;
+
+    const container = document.querySelector(".container.mb-5");
+    container.insertAdjacentHTML('beforeend', placeholderHTML);
+    
+    document.querySelector("#placeholderSection").style.display = "block";
+
+    // Bind events for placeholder buttons
+    // setTimeout(() => {
+    //   const backBtn = document.getElementById("placeholderBack");
+    //   const nextBtn = document.getElementById("placeholderNext");
+      
+    //   if (backBtn) {
+    //     backBtn.addEventListener("click", () => {
+    //       const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+    //       if (currentIndex > 0) {
+    //         const prevStep = this.mainSteps[currentIndex - 1];
+    //         this.navigateToMainStep(prevStep);
+    //       }
+    //     });
+    //   }
+      
+    //   if (nextBtn) {
+    //     nextBtn.addEventListener("click", () => {
+    //       const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+    //       if (currentIndex < this.mainSteps.length - 1) {
+    //         const nextStep = this.mainSteps[currentIndex + 1];
+    //         this.navigateToMainStep(nextStep);
+    //       }
+    //     });
+    //   }
+    // }, 100);
+  }
+
+  updateUI() {
+    // Update main progress bar
+    document.querySelectorAll(".ess-step-circle").forEach((circle) => {
+      const step = circle.getAttribute("data-step");
+      const stepIndex = this.mainSteps.indexOf(step);
+      const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+
+      circle.classList.remove("active", "completed");
+      const stepLabel = circle.nextElementSibling;
+      if (stepLabel) {
+        stepLabel.classList.remove("active");
+      }
+
+      if (stepIndex < currentIndex) {
+        circle.classList.add("completed");
+      } else if (stepIndex === currentIndex) {
+        circle.classList.add("active");
+        if (stepLabel) {
+          stepLabel.classList.add("active");
+        }
+      }
+    });
+
+    // Update connectors
+    document
+      .querySelectorAll(".ess-step-connector")
+      .forEach((connector, index) => {
+        const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+        if (index < currentIndex) {
+          connector.classList.add("completed");
+        } else {
+          connector.classList.remove("completed");
+        }
+      });
+
+    // Update sidebar (only for Information step)
+    if (this.currentMainStep === "information") {
+      document.querySelectorAll(".ess-sidebar-item").forEach((item) => {
+        const section = item.getAttribute("data-section");
+        const icon = item.querySelector(".ess-sidebar-icon");
+
+        if (this.completedSections.has(section)) {
+          item.classList.add("completed");
+          icon.innerHTML = '<i class="fas fa-check"></i>';
+        } else if (section === this.currentSubStep) {
+          item.classList.add("active");
+        }
+      });
+    }
+
+    this.updateActionButtons();
+  }
+
+  updateActionButtons() {
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    if (!backBtn || !nextBtn) return;
+
+    // Back button logic
+    if (this.currentMainStep === "information") {
+      const currentIndex = this.subSteps.indexOf(this.currentSubStep);
+      backBtn.style.visibility = currentIndex === 0 ? "hidden" : "visible";
+    } else {
+      backBtn.style.visibility = "visible";
+    }
+
+    // Next button text
+    if (this.currentMainStep === "information") {
+      const currentIndex = this.subSteps.indexOf(this.currentSubStep);
+      if (currentIndex === this.subSteps.length - 1) {
+        nextBtn.innerHTML =
+          'Save & Continue<i class="fas fa-arrow-right ms-1"></i>';
+      } else {
+        nextBtn.innerHTML = 'Next Step<i class="fas fa-arrow-right ms-1"></i>';
+      }
+    } else {
+      const currentIndex = this.mainSteps.indexOf(this.currentMainStep);
+      if (currentIndex === this.mainSteps.length - 1) {
+        nextBtn.innerHTML = 'Complete<i class="fas fa-check ms-1"></i>';
+      } else {
+        nextBtn.innerHTML = 'Continue<i class="fas fa-arrow-right ms-1"></i>';
+      }
+    }
+  }
+
+  showValidationError() {
+    // Create a temporary alert
+    const alert = document.createElement("div");
+    alert.className =
+      "alert alert-danger alert-dismissible fade show position-fixed";
+    alert.style.cssText = "top: 20px; right: 20px; z-index: 9999;";
+    alert.innerHTML = `
+                    <strong>Validation Error!</strong> Please fill in all required fields.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+
+    document.body.appendChild(alert);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+      if (alert.parentNode) {
+        alert.remove();
+      }
+    }, 3000);
+  }
+}
+
+// Initialize the form manager when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  new ESSFormManager();
 });

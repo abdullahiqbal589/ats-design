@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Kanban Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="ess-form-container">
+      <!-- Navigation -->
+      <!-- <nav class="ess-navbar">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="ess-logo">
+                        <i class="fas fa-briefcase me-2"></i>ESS
+                    </div>
+                    <ul class="ess-nav-links">
+                        <li><a href="#" class="active">Position</a></li>
+                        <li><a href="#">Job Requisition</a></li>
+                        <li><a href="#">Job Opening</a></li>
+                        <li><a href="#">Application Tracking</a></li>
+                    </ul>
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav> -->
+      <div class="header">
+        <div class="logo">
+          <div class="logo-icon">
+            <a href="./index.html"><img src="./assets/imgs/logo.svg" alt="" srcset="" /></a>
+          </div>
+        </div>
+        <div class="nav-tabs border-0">
+          <a href="#" class="nav-tab">Position</a>
+          <a href="#" class="nav-tab">Job Requisition</a>
+          <a href="#" class="nav-tab">Job Opening</a>
+          <a href="#" class="nav-tab active">ATS</a>
+        </div>
+        <a href="./applicant.html"
+          ><button class="add-btn">Applicant +</button></a
+        >
+      </div>
+      <div class="customBg py-5">
+        <div class="container">
+          <!-- Progress Bar -->
+          <div class="ess-progress-container py-5">
+            <div class="container">
+              <div class="ess-progress-steps">
+                <div class="ess-progress-step">
+                  <div class="ess-step-circle active" data-step="information">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.6"
+                        y="0.6"
+                        width="34.8"
+                        height="34.8"
+                        rx="17.4"
+                        stroke="#8F8F8F"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        d="M19.791 9.04541V12.6273C19.791 13.1023 19.9796 13.5578 20.3155 13.8937C20.6514 14.2295 21.1069 14.4182 21.5819 14.4182H25.1638"
+                        stroke="#8F8F8F"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M20.6864 23.3729C20.6864 22.6605 20.4034 21.9772 19.8996 21.4734C19.3958 20.9696 18.7125 20.6865 18 20.6865C17.2875 20.6865 16.6042 20.9696 16.1004 21.4734C15.5966 21.9772 15.3136 22.6605 15.3136 23.3729"
+                        stroke="#8F8F8F"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M20.6864 9.04541H12.6272C12.1522 9.04541 11.6967 9.2341 11.3608 9.56996C11.0249 9.90583 10.8362 10.3614 10.8362 10.8363V25.1639C10.8362 25.6388 11.0249 26.0944 11.3608 26.4302C11.6967 26.7661 12.1522 26.9548 12.6272 26.9548H23.3728C23.8478 26.9548 24.3033 26.7661 24.6392 26.4302C24.9751 26.0944 25.1638 25.6388 25.1638 25.1639V13.5228L20.6864 9.04541Z"
+                        stroke="#8F8F8F"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M18 20.6864C18.9892 20.6864 19.791 19.8845 19.791 18.8954C19.791 17.9063 18.9892 17.1045 18 17.1045C17.0109 17.1045 16.2091 17.9063 16.2091 18.8954C16.2091 19.8845 17.0109 20.6864 18 20.6864Z"
+                        stroke="#8F8F8F"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ess-step-label active">Information</div>
+                </div>
+                <div class="ess-step-connector"></div>
+                <div class="ess-progress-step">
+                  <div class="ess-step-circle" data-step="experience">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.6"
+                        y="0.6"
+                        width="34.8"
+                        height="34.8"
+                        rx="17.4"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        d="M12.6272 26.9548V10.8363C12.6272 10.3614 12.8159 9.90583 13.1518 9.56996C13.4876 9.2341 13.9431 9.04541 14.4181 9.04541H21.5819C22.0569 9.04541 22.5124 9.2341 22.8483 9.56996C23.1841 9.90583 23.3728 10.3614 23.3728 10.8363V26.9548H12.6272Z"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12.6273 18H10.8363C10.3614 18 9.90583 18.1887 9.56996 18.5246C9.2341 18.8604 9.04541 19.316 9.04541 19.7909V25.1638C9.04541 25.6387 9.2341 26.0943 9.56996 26.4301C9.90583 26.766 10.3614 26.9547 10.8363 26.9547H12.6273"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M23.3728 15.3135H25.1637C25.6387 15.3135 26.0943 15.5022 26.4301 15.838C26.766 16.1739 26.9547 16.6294 26.9547 17.1044V25.1636C26.9547 25.6386 26.766 26.0942 26.4301 26.43C26.0943 26.7659 25.6387 26.9546 25.1637 26.9546H23.3728"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M16.209 12.6274H19.7909"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M16.209 16.209H19.7909"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M16.209 19.791H19.7909"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M16.209 23.373H19.7909"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ess-step-label">Experience</div>
+                </div>
+                <div class="ess-step-connector"></div>
+                <div class="ess-progress-step">
+                  <div class="ess-step-circle" data-step="education">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.6"
+                        y="0.6"
+                        width="34.8"
+                        height="34.8"
+                        rx="17.4"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        d="M26.4353 17.0347C26.5957 16.964 26.7317 16.8478 26.8266 16.7005C26.9215 16.5533 26.9711 16.3814 26.9693 16.2062C26.9675 16.031 26.9144 15.8602 26.8164 15.7149C26.7185 15.5696 26.5801 15.4563 26.4183 15.3889L18.7433 11.8929C18.5099 11.7865 18.2565 11.7314 18 11.7314C17.7436 11.7314 17.4901 11.7865 17.2568 11.8929L9.58261 15.3853C9.42319 15.4551 9.28757 15.5699 9.19234 15.7155C9.0971 15.8612 9.04639 16.0315 9.04639 16.2055C9.04639 16.3796 9.0971 16.5498 9.19234 16.6955C9.28757 16.8412 9.42319 16.956 9.58261 17.0258L17.2568 20.5253C17.4901 20.6317 17.7436 20.6868 18 20.6868C18.2565 20.6868 18.5099 20.6317 18.7433 20.5253L26.4353 17.0347Z"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M26.9548 16.209V21.5818"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12.6272 18.4478V21.5819C12.6272 22.2944 13.1933 22.9777 14.2009 23.4815C15.2085 23.9853 16.5751 24.2683 18 24.2683C19.425 24.2683 20.7916 23.9853 21.7992 23.4815C22.8068 22.9777 23.3728 22.2944 23.3728 21.5819V18.4478"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ess-step-label">Education</div>
+                </div>
+                <div class="ess-step-connector"></div>
+                <div class="ess-progress-step">
+                  <div class="ess-step-circle" data-step="skills">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.6"
+                        y="0.6"
+                        width="34.8"
+                        height="34.8"
+                        rx="17.4"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        d="M20.4179 12.8958C20.2538 13.0632 20.1619 13.2882 20.1619 13.5226C20.1619 13.757 20.2538 13.982 20.4179 14.1494L21.8506 15.5822C22.018 15.7463 22.2431 15.8382 22.4774 15.8382C22.7118 15.8382 22.9369 15.7463 23.1043 15.5822L26.4802 12.2063C26.9305 13.2013 27.0668 14.3099 26.871 15.3844C26.6753 16.4589 26.1567 17.4482 25.3844 18.2205C24.6121 18.9928 23.6228 19.5113 22.5483 19.7071C21.4738 19.9029 20.3652 19.7666 19.3702 19.3163L13.1825 25.504C12.8262 25.8602 12.3431 26.0604 11.8393 26.0604C11.3355 26.0604 10.8523 25.8602 10.4961 25.504C10.1398 25.1477 9.9397 24.6646 9.9397 24.1608C9.9397 23.657 10.1398 23.1738 10.4961 22.8176L16.6838 16.6299C16.2335 15.6348 16.0972 14.5262 16.2929 13.4517C16.4887 12.3772 17.0073 11.3879 17.7796 10.6157C18.5519 9.84337 19.5412 9.32479 20.6156 9.12902C21.6901 8.93324 22.7988 9.06958 23.7938 9.51985L20.4268 12.8868L20.4179 12.8958Z"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ess-step-label">Skills</div>
+                </div>
+                <div class="ess-step-connector"></div>
+                <div class="ess-progress-step">
+                  <div class="ess-step-circle" data-step="preferences">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.6"
+                        y="0.6"
+                        width="34.8"
+                        height="34.8"
+                        rx="17.4"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        d="M18.197 9.04541H17.803C17.328 9.04541 16.8725 9.2341 16.5366 9.56996C16.2008 9.90583 16.0121 10.3614 16.0121 10.8363V10.9975C16.0118 11.3116 15.9288 11.6201 15.7717 11.892C15.6145 12.1639 15.3886 12.3897 15.1166 12.5467L14.7316 12.7706C14.4593 12.9278 14.1505 13.0105 13.8361 13.0105C13.5217 13.0105 13.2129 12.9278 12.9406 12.7706L12.8063 12.6989C12.3953 12.4619 11.9071 12.3975 11.4488 12.5201C10.9904 12.6427 10.5995 12.9421 10.3617 13.3526L10.1647 13.6929C9.92759 14.1039 9.86328 14.5921 9.98584 15.0504C10.1084 15.5088 10.4078 15.8997 10.8184 16.1375L10.9527 16.2271C11.2234 16.3833 11.4484 16.6077 11.6055 16.8779C11.7626 17.1481 11.8463 17.4547 11.8481 17.7673V18.224C11.8494 18.5396 11.7672 18.8499 11.61 19.1235C11.4527 19.3971 11.226 19.6243 10.9527 19.7821L10.8184 19.8627C10.4078 20.1005 10.1084 20.4914 9.98584 20.9498C9.86328 21.4081 9.92759 21.8963 10.1647 22.3073L10.3617 22.6476C10.5995 23.0581 10.9904 23.3575 11.4488 23.4801C11.9071 23.6027 12.3953 23.5383 12.8063 23.3013L12.9406 23.2296C13.2129 23.0725 13.5217 22.9897 13.8361 22.9897C14.1505 22.9897 14.4593 23.0725 14.7316 23.2296L15.1166 23.4535C15.3886 23.6105 15.6145 23.8363 15.7717 24.1082C15.9288 24.3802 16.0118 24.6886 16.0121 25.0027V25.1639C16.0121 25.6388 16.2008 26.0944 16.5366 26.4302C16.8725 26.7661 17.328 26.9548 17.803 26.9548H18.197C18.672 26.9548 19.1275 26.7661 19.4634 26.4302C19.7993 26.0944 19.988 25.6388 19.988 25.1639V25.0027C19.9883 24.6886 20.0712 24.3802 20.2284 24.1082C20.3855 23.8363 20.6114 23.6105 20.8834 23.4535L21.2685 23.2296C21.5407 23.0725 21.8496 22.9897 22.1639 22.9897C22.4783 22.9897 22.7872 23.0725 23.0594 23.2296L23.1937 23.3013C23.6047 23.5383 24.0929 23.6027 24.5513 23.4801C25.0096 23.3575 25.4006 23.0581 25.6384 22.6476L25.8354 22.2984C26.0724 21.8874 26.1367 21.3992 26.0142 20.9408C25.8916 20.4825 25.5922 20.0915 25.1817 19.8537L25.0474 19.7821C24.7741 19.6243 24.5473 19.3971 24.39 19.1235C24.2328 18.8499 24.1506 18.5396 24.1519 18.224V17.7762C24.1506 17.4607 24.2328 17.1503 24.39 16.8767C24.5473 16.6031 24.7741 16.3759 25.0474 16.2181L25.1817 16.1375C25.5922 15.8997 25.8916 15.5088 26.0142 15.0504C26.1367 14.5921 26.0724 14.1039 25.8354 13.6929L25.6384 13.3526C25.4006 12.9421 25.0096 12.6427 24.5513 12.5201C24.0929 12.3975 23.6047 12.4619 23.1937 12.6989L23.0594 12.7706C22.7872 12.9278 22.4783 13.0105 22.1639 13.0105C21.8496 13.0105 21.5407 12.9278 21.2685 12.7706L20.8834 12.5467C20.6114 12.3897 20.3855 12.1639 20.2284 11.892C20.0712 11.6201 19.9883 11.3116 19.988 10.9975V10.8363C19.988 10.3614 19.7993 9.90583 19.4634 9.56996C19.1275 9.2341 18.672 9.04541 18.197 9.04541Z"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M18.0001 20.6863C19.4838 20.6863 20.6865 19.4835 20.6865 17.9999C20.6865 16.5162 19.4838 15.3135 18.0001 15.3135C16.5165 15.3135 15.3137 16.5162 15.3137 17.9999C15.3137 19.4835 16.5165 20.6863 18.0001 20.6863Z"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ess-step-label">Preferences</div>
+                </div>
+                <div class="ess-step-connector"></div>
+                <div class="ess-progress-step">
+                  <div class="ess-step-circle" data-step="review">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.6"
+                        y="0.6"
+                        width="34.8"
+                        height="34.8"
+                        rx="17.4"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        d="M9.10041 18.3118C9.02578 18.1107 9.02578 17.8896 9.10041 17.6885C9.82726 15.9261 11.061 14.4192 12.6454 13.3588C14.2297 12.2985 16.0932 11.7324 17.9996 11.7324C19.906 11.7324 21.7695 12.2985 23.3538 13.3588C24.9381 14.4192 26.1719 15.9261 26.8988 17.6885C26.9734 17.8896 26.9734 18.1107 26.8988 18.3118C26.1719 20.0742 24.9381 21.5811 23.3538 22.6415C21.7695 23.7018 19.906 24.2679 17.9996 24.2679C16.0932 24.2679 14.2297 23.7018 12.6454 22.6415C11.061 21.5811 9.82726 20.0742 9.10041 18.3118Z"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M17.9999 20.6863C19.4835 20.6863 20.6863 19.4835 20.6863 17.9999C20.6863 16.5162 19.4835 15.3135 17.9999 15.3135C16.5162 15.3135 15.3135 16.5162 15.3135 17.9999C15.3135 19.4835 16.5162 20.6863 17.9999 20.6863Z"
+                        stroke="#8F8F8F"
+                        stroke-opacity="0.3"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <div class="ess-step-label">Review</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Content -->
+          <div class="container mb-5">
+            <div class="ess-main-content p-4">
+              <!-- for Information Section -->
+              <div class="ess-content-area row g-0" id="informationSection">
+                <!-- Sidebar -->
+                <div class="col-md-3">
+                  <div class="ess-sidebar">
+                    <div
+                      class="ess-sidebar-item active"
+                      data-section="professional-portfolio"
+                    >
+                      <div class="ess-sidebar-icon">1</div>
+                      <div>Professional Portfolio</div>
+                    </div>
+                    <div
+                      class="ess-sidebar-item"
+                      data-section="personal-information"
+                    >
+                      <div class="ess-sidebar-icon">2</div>
+                      <div>Personal Information</div>
+                    </div>
+                    <div
+                      class="ess-sidebar-item"
+                      data-section="identity-details"
+                    >
+                      <div class="ess-sidebar-icon">3</div>
+                      <div>Identity Details</div>
+                    </div>
+                    <div
+                      class="ess-sidebar-item"
+                      data-section="contact-details"
+                    >
+                      <div class="ess-sidebar-icon">4</div>
+                      <div>Contact Details</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="col-md-9">
+                  <div class="ess-content-area">
+                    <!-- Personal Information Section -->
+                    <div id="personal-information" class="ess-form-section">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">First Name</label>
+                            <input
+                              type="text"
+                              class="ess-form-control"
+                              placeholder="Mitchel"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Middle Name</label>
+                            <input
+                              type="text"
+                              class="ess-form-control"
+                              placeholder="John"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Last Name</label>
+                            <input
+                              type="text"
+                              class="ess-form-control"
+                              placeholder="Smith"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Gender</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select Gender</option>
+                              <option value="male" selected>Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Religion</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select Religion</option>
+                              <option value="islam" selected>Islam</option>
+                              <option value="christianity">Christianity</option>
+                              <option value="hinduism">Hinduism</option>
+                              <option value="other">Other</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Blood Group</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select Blood Group</option>
+                              <option value="ab+" selected>AB+</option>
+                              <option value="ab-">AB-</option>
+                              <option value="a+">A+</option>
+                              <option value="a-">A-</option>
+                              <option value="b+">B+</option>
+                              <option value="b-">B-</option>
+                              <option value="o+">O+</option>
+                              <option value="o-">O-</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Date of Birth</label>
+                            <input
+                              type="date"
+                              class="ess-form-control"
+                              value="2023-01-31"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Marital Status</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select Marital Status</option>
+                              <option value="single">Single</option>
+                              <option value="married" selected>Married</option>
+                              <option value="divorced">Divorced</option>
+                              <option value="widowed">Widowed</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Identity Details Section -->
+                    <div id="identity-details" class="ess-form-section">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Region</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select Region</option>
+                              <option value="pakistan" selected>
+                                Pakistan
+                              </option>
+                              <option value="india">India</option>
+                              <option value="bangladesh">Bangladesh</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Place of Birth</label>
+                            <input
+                              type="text"
+                              class="ess-form-control"
+                              placeholder="Smith"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">CNIC</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select Country</option>
+                              <option value="pakistan" selected>
+                                Pakistan
+                              </option>
+                              <option value="india">India</option>
+                              <option value="bangladesh">Bangladesh</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Place of Issue</label>
+                            <input
+                              type="text"
+                              class="ess-form-control"
+                              placeholder="Smith"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label"
+                              >Date of Issuance</label
+                            >
+                            <input
+                              type="date"
+                              class="ess-form-control"
+                              value="2023-01-31"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Valid Upto</label>
+                            <input
+                              type="date"
+                              class="ess-form-control"
+                              value="2033-01-31"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Passport</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select Country</option>
+                              <option value="pakistan" selected>
+                                Pakistan
+                              </option>
+                              <option value="india">India</option>
+                              <option value="bangladesh">Bangladesh</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Place of Issue</label>
+                            <input
+                              type="text"
+                              class="ess-form-control"
+                              placeholder="Smith"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label"
+                              >Date of Issuance</label
+                            >
+                            <input
+                              type="date"
+                              class="ess-form-control"
+                              value="2023-01-31"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Valid Upto</label>
+                            <input
+                              type="date"
+                              class="ess-form-control"
+                              value="2033-01-31"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Contact Details Section -->
+                    <div id="contact-details" class="ess-form-section">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Email</label>
+                            <input
+                              type="email"
+                              class="ess-form-control"
+                              placeholder="example@email.com"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Phone Number</label>
+                            <input
+                              type="tel"
+                              class="ess-form-control"
+                              placeholder="03xx 1234567"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label"
+                              >Current Address</label
+                            >
+                            <textarea
+                              class="ess-form-control"
+                              rows="3"
+                              placeholder="123 Maple Street, Lahore, Pakistan"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label"
+                              >Permanent Address</label
+                            >
+                            <textarea
+                              class="ess-form-control"
+                              rows="3"
+                              placeholder="456 Oak Avenue, Karachi, Pakistan"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Residing City</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select City</option>
+                              <option value="lahore" selected>Lahore</option>
+                              <option value="karachi">Karachi</option>
+                              <option value="islamabad">Islamabad</option>
+                              <option value="rawalpindi">Rawalpindi</option>
+                              <option value="faisalabad">Faisalabad</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Permanent City</label>
+                            <select
+                              class="ess-form-control ess-select"
+                              required
+                            >
+                              <option value="">Select City</option>
+                              <option value="rawalpindi" selected>
+                                Rawalpindi
+                              </option>
+                              <option value="karachi">Karachi</option>
+                              <option value="lahore">Lahore</option>
+                              <option value="islamabad">Islamabad</option>
+                              <option value="faisalabad">Faisalabad</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Professional Portfolio Section -->
+                    <div
+                      id="professional-portfolio"
+                      class="ess-form-section active"
+                    >
+                      <div class="ess-form-row">
+                        <label class="ess-form-label">Resume</label>
+                        <div
+                          class="ess-upload-area"
+                          onclick="document.getElementById('resume-upload').click()"
+                        >
+                          <input
+                            type="file"
+                            id="resume-upload"
+                            style="display: none"
+                            accept=".pdf"
+                          />
+                          <div class="ess-upload-icon">
+                            <i class="fas fa-upload"></i>
+                          </div>
+                          <div class="ess-upload-text">
+                            Click to upload or drag and drop
+                          </div>
+                          <div class="ess-upload-subtext">PDF, (max 10MB)</div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label"
+                              >LinkedIn Profile</label
+                            >
+                            <input
+                              type="url"
+                              class="ess-form-control"
+                              placeholder="https://www.linkedin.com/in/james-smit..."
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="ess-form-row">
+                            <label class="ess-form-label">Website</label>
+                            <input
+                              type="url"
+                              class="ess-form-control"
+                              placeholder="https://www.example.com"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ess-form-row">
+                        <label class="ess-form-label">Additional Details</label>
+                        <textarea
+                          class="ess-form-control"
+                          rows="5"
+                          placeholder="Cover Letter"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="ess-action-buttons">
+                      <button
+                        type="button"
+                        class="ess-btn-secondary"
+                        id="backBtn"
+                      >
+                        <i class="fas fa-arrow-left me-1"></i>Back
+                      </button>
+                      <button
+                        type="button"
+                        class="ess-btn-primary"
+                        id="nextBtn"
+                      >
+                        Next Step<i class="fas fa-arrow-right ms-1"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- for Experience Section -->
+              <div
+                class="ess-content-area"
+                style="display: none"
+                id="experienceSection"
+              >
+                <div class="text-center py-5">
+                  <div class="mb-4"></div>
+                  <button
+                    class="addBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#experienceModal"
+                  >
+                    <img src="./assets/imgs/add-icon.svg" alt="" srcset="" />Add
+                    Experience
+                  </button>
+                </div>
+              </div>
+              <!-- for Education Section -->
+              <div
+                class="ess-content-area"
+                style="display: none"
+                id="educationSection"
+              >
+                <div class="text-center py-5">
+                  <div class="mb-4"></div>
+                  <button class="addBtn" data-bs-toggle="modal"
+                  data-bs-target="#educationModal">
+                    <img src="./assets/imgs/add-icon.svg" alt="" srcset="" />Add
+                    Education
+                  </button>
+                </div>
+              </div>
+              <!-- for Skills Section -->
+              <div
+                class="ess-content-area"
+                style="display: none"
+                id="skillsSection"
+              >
+                <div class="text-center py-5">
+                  <div class="mb-4"></div>
+                  <button class="addBtn" data-bs-toggle="modal"
+                  data-bs-target="#skillsModal">
+                    <img src="./assets/imgs/add-icon.svg" alt="" srcset="" />Add
+                    Skills
+                  </button>
+                </div>
+              </div>
+              <!-- for Preferences Section -->
+              <div
+                class="ess-content-area"
+                style="display: none"
+                id="preferencesSection"
+              >
+                <div class="py-3">
+                  <div class="preferences-form-wrapper">
+                    <div class="pref-form-card">
+                        <form>
+                            <!-- Preferences & Expectations Section -->
+                            <div class="pref-form-section">
+                                <h3 class="pref-section-title">Preferences & Expectations</h3>
+                                
+                                <!-- Checkboxes Row -->
+                                <div class="pref-checkbox-group">
+                                    <div class="pref-checkbox-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input pref-checkbox-input" type="checkbox" id="openToShifts">
+                                            <label class="form-check-label pref-checkbox-label" for="openToShifts">
+                                                Open to Work in Shifts
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pref-checkbox-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input pref-checkbox-input" type="checkbox" id="openToRelocate">
+                                            <label class="form-check-label pref-checkbox-label" for="openToRelocate">
+                                                Open to relocate
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pref-checkbox-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input pref-checkbox-input" type="checkbox" id="willingToTravel">
+                                            <label class="form-check-label pref-checkbox-label" for="willingToTravel">
+                                                Willing To Travel
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <!-- Availability -->
+                                <div class="row pref-form-row">
+                                    <div class="col-12">
+                                        <label class="pref-field-label">Availability To Join (in days)</label>
+                                        <input type="number" class="form-control pref-input-field" placeholder="21" value="21">
+                                    </div>
+                                </div>
+        
+                                <!-- Salary Range -->
+                                <div class="row pref-form-row">
+                                    <div class="col-md-6">
+                                        <label class="pref-field-label pref-field-required">Min Expected Salary (PKR)</label>
+                                        <input type="text" class="form-control pref-input-field" placeholder="600,00" value="600,00">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="pref-field-label pref-field-required">Max Expected Salary (PKR)</label>
+                                        <input type="text" class="form-control pref-input-field" placeholder="700,00" value="700,00">
+                                    </div>
+                                </div>
+        
+                                <!-- Expected Perks & Benefits -->
+                                <div class="row pref-form-row">
+                                    <div class="col-12">
+                                        <label class="pref-field-label">Expected Perks & benefits</label>
+                                        <textarea rows="5" class="form-control pref-input-field pref-textarea-field" placeholder="456 Oak Avenue, Karachi, Pakistan"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <!-- Recruitment Details Section -->
+                            <div class="pref-form-section">
+                                <h3 class="pref-section-title mt-4">Recruitment Details</h3>
+                                
+                                <!-- How did you hear and Job Source Rating -->
+                                <div class="row pref-form-row">
+                                    <div class="col-md-6">
+                                        <label class="pref-field-label">How did you hear about us?</label>
+                                        <select class="form-select pref-select-dropdown">
+                                            <option selected class="pref-select-placeholder">600,00</option>
+                                            <option value="linkedin">LinkedIn</option>
+                                            <option value="facebook">Facebook</option>
+                                            <option value="twitter">Twitter</option>
+                                            <option value="referral">Referral</option>
+                                            <option value="job-board">Job Board</option>
+                                            <option value="company-website">Company Website</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="pref-field-label pref-field-required">Job Source Rating</label>
+                                        <select class="form-select pref-select-dropdown">
+                                            <option selected class="pref-select-placeholder">700,00</option>
+                                            <option value="1">1 - Poor</option>
+                                            <option value="2">2 - Fair</option>
+                                            <option value="3">3 - Good</option>
+                                            <option value="4">4 - Very Good</option>
+                                            <option value="5">5 - Excellent</option>
+                                        </select>
+                                    </div>
+                                </div>
+        
+                                <!-- Motivation For Applying -->
+                                <div class="row pref-form-row">
+                                    <div class="col-12">
+                                        <label class="pref-field-label">Motivation For Applying</label>
+                                        <textarea rows="5" class="form-control pref-input-field pref-textarea-field" placeholder="I am eager to apply because I believe this opportunity aligns perfectly with my skills and aspirations. I am motivated by the chance to contribute to a dynamic team and grow professionally in a challenging environment."></textarea>
+                                    </div>
+                                </div>
+        
+                                <!-- Reason for Job Switching -->
+                                <div class="row pref-form-row">
+                                    <div class="col-12">
+                                        <label class="pref-field-label">Reason for Job Switching (If Applicable)</label>
+                                        <textarea rows="5" class="form-control pref-input-field pref-textarea-field" placeholder="Switching to a new location can be beneficial for various reasons, such as seeking better opportunities, improving quality of life, or finding a more suitable environment."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                <div class="text-end">
+                  <button
+                    type="button"
+                    class="btn btn-custom-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                  <button type="button" class="btn btn-custom-primary">
+                    Add Preference
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Experience Modal -->
+    <div
+      class="modal fade modalSet"
+      id="experienceModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="experienceModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <img
+                src="./assets/imgs/policy.svg"
+                class="me-2"
+                alt=""
+                srcset=""
+              />Add Work Experience
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body p-4">
+            <div class="container py-4 offerContainer">
+                <div class="job-form-wrapper">
+                  <div class="experience-form-card">
+                    <form>
+                      <!-- Job Title and Company Name -->
+                      <div class="row job-form-row">
+                        <div class="col-md-6">
+                          <label class="job-field-label">Job Title</label>
+                          <input
+                            type="text"
+                            class="form-control job-input-field"
+                            placeholder="Mr."
+                            value="Mr."
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="job-field-label">Company Name</label>
+                          <input
+                            type="text"
+                            class="form-control job-input-field"
+                            placeholder="Company Name"
+                            value="Techverx"
+                          />
+                        </div>
+                      </div>
+
+                      <!-- Start Date and End Date -->
+                      <div class="row job-form-row">
+                        <div class="col-md-6">
+                          <label class="job-field-label">Start Date</label>
+                          <div class="job-date-wrapper">
+                            <input
+                              type="date"
+                              class="form-control job-input-field"
+                              placeholder="dd/mm/yyyy"
+                            />
+                            <i class="bi bi-calendar3"></i>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="job-field-label">End Date</label>
+                          <div class="job-date-wrapper">
+                            <input
+                              type="dat"
+                              class="form-control job-input-field"
+                              placeholder="dd/mm/yyyy"
+                            />
+                            <i class="bi bi-calendar3"></i>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Location -->
+                      <div class="row job-form-row">
+                        <div class="col-md-6">
+                          <label class="job-field-label">Location</label>
+                          <input
+                            type="text"
+                            class="form-control job-input-field"
+                            placeholder="Mr."
+                            value="Mr."
+                          />
+                        </div>
+                        <div class="col-md-6 mt-4">
+                          <div class="job-checkbox-container">
+                            <div class="form-check">
+                              <input
+                                class="form-check-input job-checkbox-input"
+                                type="checkbox"
+                                id="currentlyWorking"
+                              />
+                              <label
+                                class="form-check-label job-checkbox-text"
+                                for="currentlyWorking"
+                              >
+                                I currently work here
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Responsibilities and Achievements -->
+                      <div class="row job-form-row">
+                        <div class="col-12">
+                          <label class="job-field-label"
+                            >Responsibilities and achievements</label
+                          >
+                          <textarea
+                            class="form-control job-input-field job-textarea-field"
+                            placeholder="456 Oak Avenue, Karachi, Pakistan"
+                            rows="5"
+                          >456 Oak Avenue, Karachi, Pakistan</textarea
+                          >
+                        </div>
+                      </div>
+
+                      <!-- Total Experience and Last Drawn Salary -->
+                      <div class="row job-form-row">
+                        <div class="col-md-6">
+                          <label class="job-field-label"
+                            >Total Experience (Years)</label
+                          >
+                          <input
+                            type="number"
+                            class="form-control job-input-field"
+                            value="5"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label class="job-field-label"
+                            >Last Drawn Salary</label
+                          >
+                          <input
+                            type="number"
+                            class="form-control job-input-field"
+                            value="100,000"
+                          />
+                        </div>
+                      </div>
+
+                      <!-- Perks & Benefits -->
+                      <div class="row job-form-row">
+                        <div class="col-12">
+                          <label class="job-field-label"
+                            >Perks & benefits</label
+                          >
+                          <textarea
+                            class="form-control job-input-field job-textarea-field"
+                            placeholder="456 Oak Avenue, Karachi, Pakistan"
+                          >
+456 Oak Avenue, Karachi, Pakistan</textarea
+                          >
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-custom-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-custom-primary">
+              Add Experience
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Education Modal -->
+    <div
+      class="modal fade modalSet"
+      id="educationModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="educationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <img
+                src="./assets/imgs/policy.svg"
+                class="me-2"
+                alt=""
+                srcset=""
+              />Add Education
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body p-4">
+            <div class="container py-4 offerContainer">
+              <div class="education-form-wrapper">
+                <div class="edu-form-card">
+                    <form>
+                        <!-- Education Title and Type -->
+                        <div class="row edu-form-row">
+                            <div class="col-md-6">
+                                <label class="edu-field-label edu-field-required">Education Title</label>
+                                <select class="form-select edu-select-dropdown">
+                                    <option selected class="edu-select-placeholder">Select</option>
+                                    <option value="bachelor">Bachelor's Degree</option>
+                                    <option value="master">Master's Degree</option>
+                                    <option value="phd">PhD</option>
+                                    <option value="diploma">Diploma</option>
+                                    <option value="certificate">Certificate</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="edu-field-label edu-field-required">Type</label>
+                                <select class="form-select edu-select-dropdown">
+                                    <option selected class="edu-select-placeholder">Select</option>
+                                    <option value="full-time">Full Time</option>
+                                    <option value="part-time">Part Time</option>
+                                    <option value="distance">Distance Learning</option>
+                                    <option value="online">Online</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <!-- Institute and Specialization -->
+                        <div class="row edu-form-row">
+                            <div class="col-md-6">
+                                <label class="edu-field-label edu-field-required">Institute</label>
+                                <select class="form-select edu-select-dropdown">
+                                    <option selected class="edu-select-placeholder">Select</option>
+                                    <option value="university1">University of Karachi</option>
+                                    <option value="university2">NED University</option>
+                                    <option value="university3">IBA Karachi</option>
+                                    <option value="university4">FAST University</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="edu-field-label edu-field-required">Specialization</label>
+                                <input type="text" class="form-control edu-input-field" placeholder="Engineering" value="Engineering">
+                            </div>
+                        </div>
+    
+                        <!-- Start Date and Completion Date -->
+                        <div class="row edu-form-row">
+                            <div class="col-md-6">
+                                <label class="edu-field-label edu-field-required">Start Date</label>
+                                <div class="edu-date-container">
+                                    <input type="date" class="form-control edu-input-field" placeholder="dd/mm/yyyy">
+                                    <i class="bi bi-calendar3"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="edu-field-label edu-field-required">Completion Date</label>
+                                <div class="edu-date-container">
+                                    <input type="date" class="form-control edu-input-field" placeholder="dd/mm/yyyy">
+                                    <i class="bi bi-calendar3"></i>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Checkboxes -->
+                        <div class="edu-checkbox-group">
+                            <div class="form-check edu-checkbox-item">
+                                <input class="form-check-input edu-checkbox-input" type="checkbox" id="currentlyStudying">
+                                <label class="form-check-label edu-checkbox-label" for="currentlyStudying">
+                                    I currently work here
+                                </label>
+                            </div>
+                            <div class="form-check edu-checkbox-item">
+                                <input class="form-check-input edu-checkbox-input" type="checkbox" id="pastPosition">
+                                <label class="form-check-label edu-checkbox-label" for="pastPosition">
+                                    This is a past position
+                                </label>
+                            </div>
+                            <div class="form-check edu-checkbox-item">
+                                <input class="form-check-input edu-checkbox-input" type="checkbox" id="currentStudent">
+                                <label class="form-check-label edu-checkbox-label" for="currentStudent">
+                                    I am a student
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-custom-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-custom-primary">
+              Add Education
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Skills Modal -->
+    <div
+      class="modal fade modalSet"
+      id="skillsModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="skillsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <img
+                src="./assets/imgs/policy.svg"
+                class="me-2"
+                alt=""
+                srcset=""
+              />Add Skills
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body p-4">
+            <div class="container py-4 offerContainer">
+              <div class="education-form-wrapper">
+                <div class="edu-form-card">
+                    <form>
+                        <!-- Education Title and Type -->
+                        <div class="row edu-form-row">
+                            <div class="col-md-12">
+                                <label class="edu-field-label edu-field-required">Skill Name</label>
+                                <select class="form-select edu-select-dropdown">
+                                    <option selected class="edu-select-placeholder">Select</option>
+                                    <option value="bachelor">Bachelor's Degree</option>
+                                    <option value="master">Master's Degree</option>
+                                    <option value="phd">PhD</option>
+                                    <option value="diploma">Diploma</option>
+                                    <option value="certificate">Certificate</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <!-- Checkboxes -->
+                        <div class="edu-checkbox-group">
+                            <div class="form-check edu-checkbox-item">
+                                <input class="form-check-input edu-checkbox-input" type="checkbox" id="currentlyStudying">
+                                <label class="form-check-label edu-checkbox-label" for="currentlyStudying">
+                                  My Top Skill
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row job-form-row">
+                          <div class="col-12">
+                            <label class="job-field-label"
+                              >Description</label
+                            >
+                            <textarea
+                              class="form-control job-input-field job-textarea-field"
+                              placeholder="456 Oak Avenue, Karachi, Pakistan"
+                              rows="5"
+                            >This skill is related to my identity documents.</textarea
+                            >
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+          </div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-custom-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-custom-primary">
+              Add Skill
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

@@ -26,7 +26,7 @@
     <div class="header">
       <div class="logo">
         <div class="logo-icon">
-          <img src="./assets/imgs/ats-logo.svg" alt="" srcset="" />
+          <img src="./assets/imgs/logo.svg" alt="" srcset="" />
         </div>
       </div>
       <div class="nav-tabs border-0">
@@ -35,7 +35,9 @@
         <a href="#" class="nav-tab">Job Opening</a>
         <a href="#" class="nav-tab active">ATS</a>
       </div>
-      <button class="add-btn">Applicant +</button>
+      <a href="./applicant.html"
+        ><button class="add-btn">Applicant +</button></a
+      >
     </div>
     <div class="filteredRow">
       <div class="d-flex justify-content-between align-items-center">
@@ -94,8 +96,66 @@
         <div class="filter-column">
           <div class="filter-header screening">Screening</div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" />
+            <input class="form-check-input" type="checkbox" id="applied-checkbox" value="" />
             <label class="form-check-label">Applied</label>
+          </div>
+          <!-- Date Range Container (Hidden by default) -->
+          <div
+            class="date-range-container date-range-hidden"
+            id="date-range-container"
+          >
+            <div class="date-range-title">
+              <i class="bi bi-calendar-range me-1"></i>
+              Select Date Range
+            </div>
+            <div class="row g-2">
+              <div class="col-12 d-flex gap-2 align-items-center">
+                <label
+                  class="form-label mb-0"
+                  style="font-size: 0.8rem; color: #6c757d;min-width: 30px;"
+                  >From</label
+                >
+                <div class="date-input-wrapper w-100">
+                  <input
+                    type="date"
+                    class="form-control date-input-field pe-2"
+                    value="2025-10-09"
+                  />
+                  <i class="bi bi-calendar3 date-icon"></i>
+                </div>
+              </div>
+              <div class="col-12 d-flex gap-2 align-items-center">
+                <label
+                  class="form-label mb-0"
+                  style="font-size: 0.8rem; color: #6c757d;min-width: 30px;"
+                  >To</label
+                >
+                <div class="date-input-wrapper w-100">
+                  <input
+                    type="date"
+                    class="form-control date-input-field pe-2"
+                    value="2025-10-10"
+                  />
+                  <i class="bi bi-calendar3 date-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="date-range-actions">
+              <button
+                class="btn btn-outline-secondary btn-sm-custom"
+                type="button"
+                onclick="clearDateRange()"
+              >
+                Skip
+              </button>
+              <button
+                class="btn btn-primary btn-sm-custom"
+                type="button"
+                onclick="applyDateRange()"
+              >
+                Apply
+              </button>
+            </div>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" />
@@ -2254,7 +2314,9 @@ Explore your perfect sanctuary at 654 Birch Lane, situated in the energetic city
                 </div>
 
                 <div class="col-lg-4">
-                  <div class="status-update-section d-flex justify-content-between h-100">
+                  <div
+                    class="status-update-section d-flex justify-content-between h-100"
+                  >
                     <div>
                       <h6 class="status-update-header">Update Status</h6>
                       <div class="mb-3">
