@@ -127,10 +127,11 @@ function initializeSortable() {
         console.log("Check the event on moving card new Column", newColumn);
         console.log("Check the event on moving card old column", oldColumn);
         if (oldColumn == "screening" && newColumn == "interview") {
-          let modal = new bootstrap.Modal(
-            document.getElementById("interviewModal")
-          );
-          modal.show();
+          // let modal = new bootstrap.Modal(
+          //   document.getElementById("interviewModal")
+          // );
+          // modal.show();
+          $('#interviewModal').modal('show');
         }
         if (oldColumn == "interview" && newColumn == "decision") {
           let modal = new bootstrap.Modal(

@@ -1,3 +1,17 @@
+/* Inter */
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/inter/Inter-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/Inter/Inter-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
 .kanban-board {
   display: flex;
   gap: 10px;
@@ -2008,7 +2022,9 @@ body {
 .ess-content-area {
   padding: 0 2rem;
 }
-
+.customBg .ess-content-area {
+  padding: 0;
+}
 .ess-form-section {
   display: none;
 }
@@ -2428,22 +2444,120 @@ body {
   animation: expandDown 0.3s ease-out;
 }
 
+.gap-0 {
+  gap: 0 !important;
+}
+.gap-1 {
+  gap: 0.25rem !important;
+}
+.gap-2 {
+  gap: 0.5rem !important;
+}
+.gap-3 {
+  gap: 1rem !important;
+}
+.gap-4 {
+  gap: 1.5rem !important;
+}
+.gap-5 {
+  gap: 3rem !important;
+}
+.gap-sm-0 {
+  gap: 0 !important;
+}
+.gap-sm-1 {
+  gap: 0.25rem !important;
+}
+.gap-sm-2 {
+  gap: 0.5rem !important;
+}
+.gap-sm-3 {
+  gap: 1rem !important;
+}
+.gap-sm-4 {
+  gap: 1.5rem !important;
+}
+.gap-sm-5 {
+  gap: 3rem !important;
+}
+.gap-lg-0 {
+  gap: 0 !important;
+}
+.gap-lg-1 {
+  gap: 0.25rem !important;
+}
+.gap-lg-2 {
+  gap: 0.5rem !important;
+}
+.gap-lg-3 {
+  gap: 1rem !important;
+}
+.gap-lg-4 {
+  gap: 1.5rem !important;
+}
+.gap-lg-5 {
+  gap: 3rem !important;
+}
+.gap-xl-0 {
+  gap: 0 !important;
+}
+.gap-xl-1 {
+  gap: 0.25rem !important;
+}
+.gap-xl-2 {
+  gap: 0.5rem !important;
+}
+.gap-xl-3 {
+  gap: 1rem !important;
+}
+.gap-xl-4 {
+  gap: 1.5rem !important;
+}
+.gap-xl-5 {
+  gap: 3rem !important;
+}
+.gap-xxl-0 {
+  gap: 0 !important;
+}
+.gap-xxl-1 {
+  gap: 0.25rem !important;
+}
+.gap-xxl-2 {
+  gap: 0.5rem !important;
+}
+.gap-xxl-3 {
+  gap: 1rem !important;
+}
+.gap-xxl-4 {
+  gap: 1.5rem !important;
+}
+.gap-xxl-5 {
+  gap: 3rem !important;
+}
+#acceptedBtn, #rejectedBtn, #onHoldBtn {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+.customBg .container{
+  max-width: 1320px;
+}
 @keyframes expandDown {
   from {
-      opacity: 0;
-      max-height: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-      padding-top: 0;
-      padding-bottom: 0;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   to {
-      opacity: 1;
-      max-height: 200px;
-      margin-top: 0.75rem;
-      margin-bottom: 1rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+    opacity: 1;
+    max-height: 200px;
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 }
 @media (max-width: 768px) {
